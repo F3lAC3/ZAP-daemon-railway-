@@ -14,10 +14,10 @@ RUN mkdir -p /home/zap/.ZAP && chown -R zap:zap /home/zap/.ZAP
 USER zap
 
 # Expose API port
-EXPOSE 8090
+EXPOSE 8080
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
-    CMD curl -sf "http://127.0.0.1:8090/JSON/core/view/version/" || exit 1
+    CMD curl -sf "http://127.0.0.1:8080/JSON/core/view/version/" || exit 1
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
