@@ -3,9 +3,8 @@ set -e
 
 echo "[ZAP] Starting ZAP daemon initialization..."
 
-# Set API key from environment or use default
-ZAP_API_KEY="${ZAP_API_KEY:-your-secure-api-key}"
-echo "[ZAP] API key: ${ZAP_API_KEY:0:4}****"
+# API key is disabled for local development
+echo "[ZAP] API key: DISABLED"
 
 # Set Java memory options
 export JAVA_OPTS="-Xmx2g -Xms1g -XX:+UseG1GC"
@@ -20,8 +19,7 @@ cat > /home/zap/.ZAP/config.xml << XMLEOF
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <config>
     <api>
-        <key>${ZAP_API_KEY}</key>
-        <disablekey>false</disablekey>
+        <disablekey>true</disablekey>
         <incerrordetails>true</incerrordetails>
         <addrs>
             <addr>
@@ -35,7 +33,7 @@ cat > /home/zap/.ZAP/config.xml << XMLEOF
 XMLEOF
 
 echo "[ZAP] API access: allowing all addresses"
-echo "[ZAP] Starting daemon on 0.0.0.0:8080..."
+echo "[ZAP] Starting daemon on 0.0.0.0:8090..."
 
 # Start ZAP daemon
-exec zap.sh -daemon -host 0.0.0.0 -port 8080
+exec zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.disablekey=true -config database.recoverylog=false -config connection.timeoutInSecs=120 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
