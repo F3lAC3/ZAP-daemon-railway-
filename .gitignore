@@ -1,3 +1,26 @@
 .DS_Store
 *.log
 .env
+
+
+# Best-practices Ignore Updates (Added Automatically)
+.claude/
+.gemini/
+.agent/
+.agents/
+_agents/
+.antigravity/
+agent-os/
+.cursor/
+.pytest_cache/
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env.bak
+.env.backup
+venv/
+.venv/
+log/
